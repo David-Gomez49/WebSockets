@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const socket = io();
 
-    // Selección de elementos del DOM
+    // Selección de elementos 
     const canvas = document.getElementById('whiteboard');
     const ctx = canvas.getContext('2d');
     const colorPicker = document.getElementById('colorPicker');
@@ -20,11 +20,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let isDrawing = false;
     let lastX = 0;
     let lastY = 0;
-    let currentColor = '#000'; // Color inicial
+    let currentColor = '#000'; 
 
     // Función reutilizable para dibujar una línea
-    
-
     function drawLine(x0, y0, x1, y1, color, width) {
         ctx.beginPath();
         ctx.moveTo(x0, y0);
@@ -45,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- MANEJO DE EVENTOS DE DIBUJO LOCAL ---
+    // --- MANEJO DE EVENTOS ---
     function startDrawing(e) {
         isDrawing = true;
         [lastX, lastY] = [e.offsetX, e.offsetY];
@@ -75,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
     canvas.addEventListener('mouseup', stopDrawing);
     canvas.addEventListener('mouseout', stopDrawing);
 
-    // --- MANEJO DE EVENTOS DE LOS CONTROLES ---
+    
     colorPalette.forEach(colorDiv => {
         colorDiv.addEventListener('click', () => {
             currentColor = colorDiv.dataset.color;
@@ -98,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const tempCtx = tempCanvas.getContext('2d');
         tempCanvas.width = canvas.width;
         tempCanvas.height = canvas.height;
-        tempCtx.fillStyle = '#ffff'; // Color de fondo del CSS
+        tempCtx.fillStyle = '#ffff'; 
         tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
         tempCtx.drawImage(canvas, 0, 0);
         const dataURL = tempCanvas.toDataURL('image/png');
@@ -132,7 +130,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- INICIALIZACIÓN ---
-    // Establecer el color activo inicial basado en el HTML
     const initialActiveColor = document.querySelector('.palette-color.active');
     if (initialActiveColor) {
         currentColor = initialActiveColor.dataset.color;
