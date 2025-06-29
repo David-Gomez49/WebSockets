@@ -7,6 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const colorPicker = document.getElementById('colorPicker');
     const colorPalette = document.querySelectorAll('.palette-color');
     const lineWidthInput = document.getElementById('lineWidth');
+    const userCountDisplay = document.getElementById('user-count-display').querySelector('span');
+
     const clearBtn = document.getElementById('clearBtn');
     const downloadBtn = document.getElementById('downloadBtn');
 
@@ -21,6 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentColor = '#000'; // Color inicial
 
     // Función reutilizable para dibujar una línea
+    
+
     function drawLine(x0, y0, x1, y1, color, width) {
         ctx.beginPath();
         ctx.moveTo(x0, y0);
@@ -117,6 +121,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     socket.on('board-cleared', () => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+    });
+
+    socket.on('update-user-count', (count) => {
+        userCountDisplay.textContent = count;
     });
     
     socket.on('connect', () => {
