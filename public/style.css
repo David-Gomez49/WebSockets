@@ -1,0 +1,51 @@
+/* public/style.css */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 20px;
+    background-color: #333;
+    color: white;
+}
+
+h1 {
+    color: #f0f0f0;
+}
+
+.controls {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 10px;
+    background-color: #444;
+    border-radius: 8px;
+}
+
+label {
+    font-size: 16px;
+}
+
+button, input {
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #666;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+input[type="color"] {
+    padding: 0;
+    width: 40px;
+    height: 30px;
+    border: none;
+}
+
+canvas#whiteboard {
+    border: 2px solid #000000;
+    background-color: #ffffff; /* Fondo oscuro para el lienzo */
+    cursor: crosshair;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+}
