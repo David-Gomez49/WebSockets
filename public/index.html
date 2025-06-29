@@ -1,25 +1,65 @@
-<!-- public/index.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pizarrón Colaborativo</title>
+    <title>Pizarrón Colaborativo Pro</title>
+    <!-- Importar una fuente moderna -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Pizarrón Colaborativo en Tiempo Real</h1>
-    <div class="controls">
-        <label for="colorPicker">Color:</label>
-        <input type="color" id="colorPicker" value="#0000">
-        
-        <label for="lineWidth">Grosor:</label>
-        <input type="range" id="lineWidth" min="1" max="50" value="5">
-        
-        <button id="clearBtn">Limpiar Tablero</button>
-        <button id="downloadBtn">Descargar</button>
+
+    <div class="app-container">
+        <header class="app-header">
+            <h1>Pizarrón Colaborativo</h1>
+            <div id="user-count-display" class="user-count">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                <span>1</span>
+            </div>
+
+        </header>
+
+        <main class="main-content">
+            <div class="toolbar">
+                <div class="tool-group">
+                    <label>Color</label>
+                    <!-- El color picker ahora funciona junto a la paleta -->
+                    <input type="color" id="colorPicker" value="#FFFFFF" title="Seleccionar color personalizado">
+                    
+                    <!-- Paleta de colores predeterminados -->
+                    <div class="color-palette">
+                        <div class="palette-color active" data-color="#000" style="background-color: #000000;" title="Negro"></div>
+                        <div class="palette-color" data-color="#EF4444" style="background-color: #EF4444;" title="Rojo"></div>
+                        <div class="palette-color" data-color="#3B82F6" style="background-color: #3B82F6;" title="Azul"></div>
+                        <div class="palette-color" data-color="#22C55E" style="background-color: #22C55E;" title="Verde"></div>
+                        <div class="palette-color" data-color="#F97316" style="background-color: #F97316;" title="Naranja"></div>
+                        <div class="palette-color" data-color="#EAB308" style="background-color: #EAB308;" title="Amarillo"></div>
+                    </div>
+                </div>
+                
+                <div class="tool-group">
+                    <label for="lineWidth">Grosor</label>
+                    <input type="range" id="lineWidth" min="1" max="50" value="5" title="Ajustar grosor del pincel">
+                </div>
+                
+                <div class="tool-group separator">
+                    <button id="clearBtn" class="tool-button" title="Limpiar todo el tablero">
+                        <!-- Icono de Goma de Borrar (SVG) -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 2.5.5 4.5l6 6L2.5 15l2 2 4.5-4.5 6 6 2-2-6-6 4.5-4.5-2-2-6 6-4.5-4.5Z"/><path d="m21.5 21.5-6-6"/></svg>
+                    </button>
+                    <button id="downloadBtn" class="tool-button" title="Descargar imagen">
+                        <!-- Icono de Descargar (SVG) -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                    </button>
+                </div>
+            </div>
+
+            <canvas id="whiteboard"></canvas>
+        </main>
     </div>
-    <canvas id="whiteboard"></canvas>
 
     <script src="/socket.io/socket.io.js"></script>
     <script src="client.js"></script>

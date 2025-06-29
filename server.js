@@ -13,26 +13,29 @@ let drawingHistory = [];
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 io.on('connection', (socket) => {
     console.log(`Usuario conectado: ${socket.id}`);
+    
+    // NOTIFICAR A TODOS SOBRE EL NUEVO NÚMERO DE USUARIOS
+    io.emit('update-user-count', io.engine.clientsCount);
+
     socket.emit('drawing-history', drawingHistory);
 
-    // 2. Escuchar por eventos de dibujo de un cliente.
     socket.on('drawing', (data) => {
-        console.log(data)
         drawingHistory.push(data);
         socket.broadcast.emit('drawing', data);
     });
 
-    // 3. Escuchar por el evento de limpiar el tablero.
     socket.on('clear-board', () => {
         drawingHistory = [];
         io.emit('board-cleared');
     });
 
-    // 4. Manejar la desconexión de un usuario.
     socket.on('disconnect', () => {
         console.log(`Usuario desconectado: ${socket.id}`);
+        // NOTIFICAR A TODOS SOBRE EL NUEVO NÚMERO DE USUARIOS
+        io.emit('update-user-count', io.engine.clientsCount);
     });
 });
 

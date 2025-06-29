@@ -1,51 +1,260 @@
-/* public/style.css */
+/* --- 1. Variables y Reseteo Global --- */
+:root {
+    --bg-primary: #282c34;
+    --bg-secondary: #3c4049;
+    --bg-canvas: #ffffff;
+    --text-primary: #f1f1f1;
+    --text-secondary: #c7c7c7;
+    --accent-color: #61dafb;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    --font-family: 'Poppins', sans-serif;
+    --border-radius: 8px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: var(--font-family);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+/* --- 2. Contenedores Principales --- */
+.app-container {
+    width: 100%;
+    max-width: 1200px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0;
-    padding: 20px;
-    background-color: #333;
-    color: white;
+    gap: 20px;
 }
-
-h1 {
-    color: #f0f0f0;
+.app-header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; /* Para posicionar el contador */
 }
-
-.controls {
-    margin-bottom: 15px;
+.app-header h1 {
+    font-weight: 600;
+    color: var(--text-primary);
+    text-shadow: 1px 1px 3px var(--shadow-color);
+}
+.user-count {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--bg-secondary);
+    color: var(--text-secondary);
+    padding: 8px 16px;
+    border-radius: 20px;
     display: flex;
     align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    box-shadow: 0 2px 5px var(--shadow-color);
+    transition: color 0.3s, background-color 0.3s;
+}
+
+.user-count:hover {
+    color: var(--accent-color);
+}
+
+.user-count svg {
+    width: 20px;
+    height: 20px;
+}
+.main-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     gap: 20px;
-    padding: 10px;
-    background-color: #444;
-    border-radius: 8px;
+}
+
+/* --- 3. Barra de Herramientas --- */
+.toolbar {
+    width: 100%;
+    max-width: 800px;
+    background-color: var(--bg-secondary);
+    padding: 12px 20px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 12px var(--shadow-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap; /* Para responsividad */
+}
+
+.tool-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.tool-group.separator {
+    border-left: 1px solid #555;
+    padding-left: 30px;
 }
 
 label {
-    font-size: 16px;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--text-secondary);
 }
 
-button, input {
-    padding: 5px 10px;
-    border-radius: 5px;
-    border: 1px solid #666;
+/* --- 4. Estilos de Controles Específicos --- */
+.color-palette {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: 10px;
+}
+
+.palette-color {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
     cursor: pointer;
-    font-size: 16px;
+    border: 3px solid transparent;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px var(--shadow-color);
+}
+
+.palette-color:hover {
+    transform: scale(1.15);
+}
+
+.palette-color.active {
+    border-color: var(--accent-color);
+    transform: scale(1.15);
+    box-shadow: 0 2px 5px var(--shadow-color);
 }
 
 input[type="color"] {
-    padding: 0;
-    width: 40px;
-    height: 30px;
+    -webkit-appearance: none;
+    width: 35px;
+    height: 35px;
     border: none;
+    border-radius: 50%;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+    border: 2px solid var(--text-secondary);
+    transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
+input[type="color"].active {
+    border-color: var(--accent-color);
+    transform: scale(1.1);
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+input[type="color"]::-webkit-color-swatch {
+    border: none;
+    border-radius: 50%;
+}
+input[type="color"]:hover {
+    transform: scale(1.1);
+}
+
+input[type="range"] {
+    -webkit-appearance: none;
+    width: 150px;
+    height: 8px;
+    background: #555;
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+}
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: var(--accent-color);
+    border-radius: 50%;
+    border: 2px solid var(--bg-primary);
+    transition: background 0.2s ease;
+}
+input[type="range"]::-webkit-slider-thumb:hover {
+    background: #ffffff;
+}
+
+.tool-button {
+    background-color: transparent;
+    border: 2px solid var(--text-secondary);
+    color: var(--text-secondary);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.tool-button:hover {
+    background-color: var(--accent-color);
+    color: var(--bg-primary);
+    border-color: var(--accent-color);
+    transform: translateY(-2px);
+}
+
+.tool-button svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* --- 5. Lienzo (Canvas) --- */
 canvas#whiteboard {
-    border: 2px solid #000000;
-    background-color: #ffffff; /* Fondo oscuro para el lienzo */
+    background-color: var(--bg-canvas);
+    border-radius: var(--border-radius);
     cursor: crosshair;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+    box-shadow: 0 8px 24px var(--shadow-color);
+    border: 1px solid #444;
+}
+
+/* --- 6. Responsividad para Móviles --- */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .toolbar {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px;
+    }
+    
+    .tool-group.separator {
+        border-left: none;
+        padding-left: 0;
+        width: 100%;
+        justify-content: center;
+        border-top: 1px solid #555;
+        padding-top: 15px;
+    }
+    .app-header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .user-count {
+        position: static; /* Quita el posicionamiento absoluto */
+        transform: none;
+    }
 }
