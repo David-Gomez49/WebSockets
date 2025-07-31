@@ -258,3 +258,97 @@ canvas#whiteboard {
         transform: none;
     }
 }
+
+/* --- 7. Estilos del Lobby --- */
+.lobby {
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+    padding: 40px;
+    background-color: var(--bg-secondary);
+    border-radius: var(--border-radius);
+    box-shadow: 0 8px 24px var(--shadow-color);
+    text-align: center;
+}
+
+.lobby-title {
+    color: var(--accent-color);
+    margin-bottom: 30px;
+}
+
+.lobby-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    text-align: left;
+}
+
+.lobby-section {
+    padding: 20px;
+    background-color: #3c4049e0;
+    border-radius: var(--border-radius);
+}
+
+.lobby-section h2 {
+    margin-bottom: 20px;
+    color: var(--text-primary);
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 10px;
+}
+
+#public-boards-list {
+    list-style-type: none;
+    padding: 0;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+#public-boards-list li {
+    background-color: #4a4f58;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#public-boards-list li:hover {
+    background-color: var(--accent-color);
+    color: var(--bg-primary);
+    transform: translateX(5px);
+}
+
+.lobby-section input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    background-color: var(--bg-primary);
+    border: 1px solid #555;
+    border-radius: 5px;
+    color: var(--text-primary);
+}
+
+.lobby-section button {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--accent-color);
+    color: var(--bg-primary);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+.lobby-section button:hover {
+    background-color: #ffffff;
+}
+
+@media (max-width: 768px) {
+    .lobby-content {
+        grid-template-columns: 1fr;
+    }
+}
