@@ -1,14 +1,18 @@
 /* --- 1. Variables y Reseteo Global --- */
 :root {
-    --bg-primary: #282c34;
-    --bg-secondary: #3c4049;
+    --bg-primary: #1a1d23;
+    --bg-secondary: #2c313a;
+    --bg-lobby: #242830;
     --bg-canvas: #ffffff;
-    --text-primary: #f1f1f1;
-    --text-secondary: #c7c7c7;
-    --accent-color: #61dafb;
-    --shadow-color: rgba(0, 0, 0, 0.3);
+    --text-primary: #e6e6e6;
+    --text-secondary: #a0a0a0;
+    --accent-color: #00aaff;
+    --accent-color-dark: #0088cc;
+    --success-color: #22C55E;
+    --error-color: #EF4444;
+    --shadow-color: rgba(0, 0, 0, 0.4);
     --font-family: 'Poppins', sans-serif;
-    --border-radius: 8px;
+    --border-radius: 12px;
 }
 
 * {
@@ -23,36 +27,148 @@ body {
     color: var(--text-primary);
     display: flex;
     justify-content: center;
+    align-items: flex-start;
     padding: 20px;
     min-height: 100vh;
 }
+.lobby {
+    width: 100%;
+    max-width: 900px;
+    background-color: var(--bg-lobby);
+    padding: 40px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 10px 30px var(--shadow-color);
+    text-align: center;
+}
 
-/* --- 2. Contenedores Principales --- */
+.lobby-title {
+    font-size: 2.8rem;
+    color: var(--accent-color);
+    margin-bottom: 40px;
+}
+
+/* --- ESTILOS MODIFICADOS PARA EL NUEVO LAYOUT --- */
+.lobby-content {
+    display: flex;
+    flex-direction: column; /* Apila las filas verticalmente */
+    gap: 30px; /* Espacio entre la fila de arriba y la de abajo */
+    text-align: left;
+}
+
+.lobby-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Crea dos columnas iguales */
+    gap: 30px; /* Espacio entre las columnas de crear y unirse */
+}
+/* ------------------------------------------- */
+
+.lobby-section {
+    background-color: var(--bg-secondary);
+    padding: 25px;
+    border-radius: var(--border-radius);
+    display: flex;
+    flex-direction: column;
+}
+
+.lobby-section h2 {
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 10px;
+    color: var(--text-primary);
+}
+
+.public-boards-section #public-boards-list {
+    list-style: none;
+    max-height: 250px; /* Un poco más de altura */
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+#public-boards-list li {
+    background-color: #3a404a;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    font-weight: 500;
+}
+
+#public-boards-list li:hover {
+    background-color: var(--accent-color);
+    color: var(--bg-primary);
+    transform: translateX(5px);
+}
+
+.lobby-section input[type="text"],
+.lobby-section input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    background-color: var(--bg-primary);
+    border: 2px solid #444;
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+.lobby-section input:focus {
+    outline: none;
+    border-color: var(--accent-color);
+}
+
+.lobby-section button {
+    width: 100%;
+    padding: 14px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+    background-color: var(--accent-color);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    margin-top: auto;
+}
+
+.lobby-section button:hover {
+    background-color: var(--accent-color-dark);
+    transform: scale(1.02);
+}
+
+/* --- 3. Contenedores Principales de la App --- */
 .app-container {
     width: 100%;
-    max-width: 1200px;
+    max-width: 1600px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
+    gap: 15px;
 }
 .app-header {
     width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    position: relative; /* Para posicionar el contador */
+    padding: 10px;
+    background-color: var(--bg-lobby);
+    border-radius: var(--border-radius);
 }
-.app-header h1 {
+#board-name-display {
     font-weight: 600;
     color: var(--text-primary);
-    text-shadow: 1px 1px 3px var(--shadow-color);
+    font-size: 1.6rem;
+    margin-left: 20px;
 }
-.user-count {
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
+
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-right: 20px;
+}
+
+.control-button {
     background-color: var(--bg-secondary);
     color: var(--text-secondary);
     padding: 8px 16px;
@@ -61,66 +177,69 @@ body {
     align-items: center;
     gap: 8px;
     font-weight: 600;
-    box-shadow: 0 2px 5px var(--shadow-color);
-    transition: color 0.3s, background-color 0.3s;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.control-button:hover {
+    background-color: var(--accent-color);
+    color: #fff;
+}
+.control-button.copied {
+    background-color: var(--success-color);
+    color: #fff;
 }
 
-.user-count:hover {
-    color: var(--accent-color);
+.user-count {
+    background-color: var(--bg-secondary);
+    color: var(--text-secondary);
+    padding: 8px 16px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
 }
-
-.user-count svg {
+.user-count svg, .control-button svg {
     width: 20px;
     height: 20px;
 }
-.main-content {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-}
 
-/* --- 3. Barra de Herramientas --- */
+/* --- 4. Barra de Herramientas --- */
 .toolbar {
-    width: 100%;
-    max-width: 800px;
-    background-color: var(--bg-secondary);
+    width: auto;
+    background-color: var(--bg-lobby);
     padding: 12px 20px;
     border-radius: var(--border-radius);
     box-shadow: 0 4px 12px var(--shadow-color);
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap; /* Para responsividad */
+    gap: 25px;
+    flex-wrap: wrap;
 }
 
 .tool-group {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
 }
-
 .tool-group.separator {
     border-left: 1px solid #555;
-    padding-left: 30px;
+    padding-left: 25px;
 }
-
 label {
     font-size: 14px;
     font-weight: 400;
     color: var(--text-secondary);
 }
 
-/* --- 4. Estilos de Controles Específicos --- */
+/* --- 5. Controles Específicos --- */
 .color-palette {
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-left: 10px;
 }
-
 .palette-color {
     width: 28px;
     height: 28px;
@@ -130,51 +249,33 @@ label {
     transition: all 0.2s ease;
     box-shadow: 0 1px 3px var(--shadow-color);
 }
-
 .palette-color:hover {
     transform: scale(1.15);
 }
-
 .palette-color.active {
     border-color: var(--accent-color);
     transform: scale(1.15);
-    box-shadow: 0 2px 5px var(--shadow-color);
 }
-
 input[type="color"] {
     -webkit-appearance: none;
-    width: 35px;
-    height: 35px;
+    width: 30px;
+    height: 30px;
     border: none;
     border-radius: 50%;
     background: none;
     cursor: pointer;
     padding: 0;
     border: 2px solid var(--text-secondary);
-    transition: transform 0.2s ease, border-color 0.2s ease;
+    transition: transform 0.2s ease;
 }
-
-input[type="color"].active {
-    border-color: var(--accent-color);
-    transform: scale(1.1);
-}
-
-input[type="color"]::-webkit-color-swatch-wrapper {
-    padding: 0;
-}
-input[type="color"]::-webkit-color-swatch {
-    border: none;
-    border-radius: 50%;
-}
-input[type="color"]:hover {
-    transform: scale(1.1);
-}
+input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+input[type="color"]::-webkit-color-swatch { border: none; border-radius: 50%; }
 
 input[type="range"] {
     -webkit-appearance: none;
     width: 150px;
     height: 8px;
-    background: #555;
+    background: #444;
     border-radius: 5px;
     outline: none;
     cursor: pointer;
@@ -186,169 +287,51 @@ input[type="range"]::-webkit-slider-thumb {
     height: 20px;
     background: var(--accent-color);
     border-radius: 50%;
-    border: 2px solid var(--bg-primary);
-    transition: background 0.2s ease;
-}
-input[type="range"]::-webkit-slider-thumb:hover {
-    background: #ffffff;
+    cursor: pointer;
 }
 
 .tool-button {
-    background-color: transparent;
-    border: 2px solid var(--text-secondary);
+    background-color: var(--bg-secondary);
+    border: 2px solid transparent;
     color: var(--text-secondary);
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--border-radius);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
 }
-
-.tool-button:hover {
+.tool-button:hover, .tool-button.active {
     background-color: var(--accent-color);
-    color: var(--bg-primary);
-    border-color: var(--accent-color);
+    color: #fff;
     transform: translateY(-2px);
 }
+.tool-button svg { width: 22px; height: 22px; }
 
-.tool-button svg {
-    width: 20px;
-    height: 20px;
-}
-
-/* --- 5. Lienzo (Canvas) --- */
+/* --- 6. Lienzo (Canvas) --- */
 canvas#whiteboard {
     background-color: var(--bg-canvas);
     border-radius: var(--border-radius);
     cursor: crosshair;
     box-shadow: 0 8px 24px var(--shadow-color);
-    border: 1px solid #444;
 }
 
-/* --- 6. Responsividad para Móviles --- */
-@media (max-width: 768px) {
-    body {
-        padding: 10px;
-    }
-    
-    .toolbar {
-        flex-direction: column;
-        gap: 15px;
-        padding: 15px;
-    }
-    
-    .tool-group.separator {
-        border-left: none;
-        padding-left: 0;
-        width: 100%;
-        justify-content: center;
-        border-top: 1px solid #555;
-        padding-top: 15px;
-    }
-    .app-header {
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .user-count {
-        position: static; /* Quita el posicionamiento absoluto */
-        transform: none;
-    }
-}
-
-/* --- 7. Estilos del Lobby --- */
-.lobby {
-    width: 100%;
-    max-width: 800px;
-    margin: auto;
-    padding: 40px;
-    background-color: var(--bg-secondary);
-    border-radius: var(--border-radius);
-    box-shadow: 0 8px 24px var(--shadow-color);
-    text-align: center;
-}
-
-.lobby-title {
-    color: var(--accent-color);
-    margin-bottom: 30px;
-}
-
-.lobby-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    text-align: left;
-}
-
-.lobby-section {
-    padding: 20px;
-    background-color: #3c4049e0;
-    border-radius: var(--border-radius);
-}
-
-.lobby-section h2 {
-    margin-bottom: 20px;
-    color: var(--text-primary);
-    border-bottom: 2px solid var(--accent-color);
-    padding-bottom: 10px;
-}
-
-#public-boards-list {
-    list-style-type: none;
-    padding: 0;
-    max-height: 200px;
-    overflow-y: auto;
-}
-
-#public-boards-list li {
-    background-color: #4a4f58;
-    margin-bottom: 10px;
-    padding: 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-#public-boards-list li:hover {
-    background-color: var(--accent-color);
-    color: var(--bg-primary);
-    transform: translateX(5px);
-}
-
-.lobby-section input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    background-color: var(--bg-primary);
-    border: 1px solid #555;
-    border-radius: 5px;
-    color: var(--text-primary);
-}
-
-.lobby-section button {
-    width: 100%;
-    padding: 12px;
-    background-color: var(--accent-color);
-    color: var(--bg-primary);
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: background-color 0.3s;
-}
-
-.lobby-section button:hover {
-    background-color: #ffffff;
+/* --- 7. Responsividad --- */
+@media (max-width: 900px) {
+    .lobby-content { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 768px) {
-    .lobby-content {
+    body { padding: 10px; }
+    
+    /* Apila las columnas de acciones en pantallas pequeñas */
+    .lobby-actions {
         grid-template-columns: 1fr;
     }
+    
+    .app-header { flex-direction: column; gap: 15px; padding: 15px; }
+    .toolbar { flex-direction: column; gap: 15px; padding: 15px; width: 100%; }
+    .tool-group.separator { border-left: none; padding-left: 0; width: 100%; justify-content: center; border-top: 1px solid #555; padding-top: 15px; }
 }
